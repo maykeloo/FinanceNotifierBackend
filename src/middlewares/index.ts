@@ -1,10 +1,6 @@
+import bodyParser from "body-parser";
 import { Express } from "express";
-import { bodyParserMiddleware } from "@/middlewares/bodyParser";
-
-const middlewares = [bodyParserMiddleware];
 
 export const applyMiddlewares = (app: Express) => {
-  middlewares.forEach((middleware) => {
-    app.use(middleware());
-  });
+  app.use(bodyParser.text({ type: "text/plain" }));
 };

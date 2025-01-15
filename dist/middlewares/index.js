@@ -1,11 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.applyMiddlewares = void 0;
-const bodyParser_1 = require("@/middlewares/bodyParser");
-const middlewares = [bodyParser_1.bodyParserMiddleware];
+const body_parser_1 = __importDefault(require("body-parser"));
 const applyMiddlewares = (app) => {
-    middlewares.forEach((middleware) => {
-        app.use(middleware());
-    });
+    app.use(body_parser_1.default.text({ type: "text/plain" }));
 };
 exports.applyMiddlewares = applyMiddlewares;
