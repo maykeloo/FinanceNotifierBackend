@@ -30,28 +30,14 @@ wss.on('connection', (ws) => {
 });
 
 app.post('/webhook', (req: Request, res: Response) => {
-    const { amount, description, date, category } = req.body as Transaction;
+    const email = req.body
 
-    if (!amount || !description || !date) {
+    if (!email) {
         res.status(400).send({ error: 'Invalid data format' });
         return;
     }
 
-    const payload: Transaction = {
-        amount,
-        description,
-        date,
-        category: category || 'Uncategorized',
-    };
-
-    clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify(payload));
-        }
-    });
-
-    console.log('Webhook received:', payload);
-    res.status(200).send({ status: 'success' });
+    res.status(200).send({ status: 'success', data: email });
 });
 
 server.listen(port, () => {
